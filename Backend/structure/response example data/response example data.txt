@@ -1,0 +1,275 @@
+Example data
+
+
+/***********************************************************************************
+    Create a Client
+***********************************************************************************
+// POST /api/user/clients/{id}/summary
+{
+    "companyName": "Acme Corp",
+    "contactName": "John Doe",
+    "email": "john@acmecorp.com",
+    "phone": "+1234567890",
+    "address": "123 Main St",
+    "city": "New York",
+    "state": "NY",
+    "country": "USA",
+    "postalCode": "10001",
+    "clientCategory": "recurring",
+    "notes": "Important client"
+}
+
+/***********************************************************************************
+    Client summary
+***********************************************************************************
+// GET /api/user/clients/{id}/summary
+{
+  "companyName": "TechCorp Inc.",
+  "contactName": "Sarah Johnson",
+  "status": "active",
+  "revenueTier": "high",
+  "projectCount": 5,
+  "activeProjectCount": 2,
+  "totalPaidAmount": 25450.00,
+  "outstandingBalance": 3250.00,
+  "onTimePaymentRate": 95.50,
+  "paymentBehavior": "excellent",
+  "hasOverdueInvoices": false,
+  "hasPendingQuotes": true,
+  "lastPaymentDate": "2024-01-15",
+  "engagementLevel": "high"
+}
+
+/***********************************************************************************
+    Create a Project
+***********************************************************************************
+// POST /api/user/projects
+{
+    "clientId": "123e4567-e89b-12d3-a456-426614174000",
+    "name": "Website Redesign",
+    "description": "Complete redesign of company website with new features",
+    "status": "active",
+    "hourlyRate": 75.00,
+    "fixedPrice": 5000.00,
+    "startDate": "2024-01-15",
+    "dueDate": "2024-03-15",
+    "tags": ["web-design", "frontend", "responsive"],
+    "metadata": "{\"priority\": \"high\", \"teamSize\": 2}"
+}
+
+/***********************************************************************************
+    Create a Quote
+***********************************************************************************
+// Option 1: Quote
+{
+    "clientId": "123e4567-e89b-12d3-a456-426614174000",
+    "projectId": "223e4567-e89b-12d3-a456-426614174000",
+    "title": "Website Development Proposal",
+    "summary": "Complete website development with CMS integration",
+    "validUntil": "2024-02-28",
+    "termsAndConditions": "Payment due within 30 days...",
+    "notes": "Includes 3 rounds of revisions",
+    "taxAmount": 200.00,
+    "discountAmount": 100.00,
+    "currency": "USD",
+    "items": [
+        {
+            "description": "Website Design",
+            "quantity": 1,
+            "unitPrice": 1500.00,
+            "taxRate": 10.00,
+            "discount": 0.00,
+            "sortOrder": 0
+        },
+        {
+            "description": "CMS Integration",
+            "quantity": 1,
+            "unitPrice": 800.00,
+            "taxRate": 10.00,
+            "discount": 5.00,
+            "sortOrder": 1
+        }
+    ]
+}
+// Option 2: Invoice and invoice item Separated
+
+{
+    "clientId": "123e4567-e89b-12d3-a456-426614174000",
+    "projectId": "223e4567-e89b-12d3-a456-426614174000",
+    "title": "Website Development Proposal",
+    "summary": "Complete website development with CMS integration",
+    "validUntil": "2024-02-28",
+    "termsAndConditions": "Payment due within 30 days...",
+    "notes": "Includes 3 rounds of revisions",
+    "taxAmount": 200.00,
+    "discountAmount": 100.00,
+    "currency": "USD"
+}
+
+{
+    "description": "Website Design",
+    "quantity": 1,
+    "unitPrice": 1500.00,
+    "taxRate": 10.00,
+    "discount": 0.00,
+    "sortOrder": 0
+},
+
+
+/***********************************************************************************
+    Create an Invoice
+***********************************************************************************
+
+// Option 1: Invoice
+{
+    "clientId": "667cfae9-5bdf-420b-b270-b5271f3e0c88",
+    "projectId": "11b2e4e9-5fac-4570-bf0b-3c871734e5d9",
+    "quoteId": "fe9c580d-2761-4893-97a7-784fe60f48a3",
+    "title": "Website Development Invoice",
+    "issueDate": "2024-01-15",
+    "dueDate": "2024-02-15",
+    "paymentTerms": "Net 30",
+    "notes": "Please make payment within 30 days",
+    "terms": "Late payments subject to 1.5% monthly interest",
+    "taxAmount": 200.00,
+    "discountAmount": 100.00,
+    "currency": "USD",
+    "paymentLink": "https://stripe.com/pay/inv_123",
+    "items": [
+        {
+            "description": "Website Design",
+            "quantity": 1,
+            "unitPrice": 1500.00,
+            "taxRate": 10.00,
+            "sortOrder": 0
+        },
+        {
+            "description": "CMS Integration",
+            "quantity": 1,
+            "unitPrice": 800.00,
+            "taxRate": 10.00,
+            "discount": 5.00,
+            "sortOrder": 1
+        }
+    ]
+}
+// Option 2: Invoice and invoice item Separated
+{
+    "clientId": "667cfae9-5bdf-420b-b270-b5271f3e0c88",
+    "projectId": "11b2e4e9-5fac-4570-bf0b-3c871734e5d9",
+    "quoteId": "fe9c580d-2761-4893-97a7-784fe60f48a3",
+    "invoiceNumber": "INV-2025-001",
+    "title": "Invoice for Website Redesign Project",
+    "status": "draft",
+    "issueDate": "2025-01-01",
+    "dueDate": "2025-01-15",
+    "paidDate": null,
+    "paymentTerms": "Net 15",
+    "notes": "Thank you for your business!",
+    "terms": "Payment due within 15 days.",
+    "subtotal": 500.00,
+    "taxAmount": 50.00,
+    "discountAmount": 0.00,
+    "totalAmount": 550.00,
+    "amountPaid": 0.00,
+    "balanceDue": 550.00,
+    "currency": "USD",
+    "pdfUrl": null,
+    "publicHash": null,
+    "paymentLink": null
+}
+
+{
+    "description": "Logo Design",
+    "quantity": 2,
+    "unitPrice": 100,
+    "taxRate": 8
+}
+
+/***********************************************************************************
+    Create Payment to Invoice
+***********************************************************************************
+POST /api/v1/invoices/{invoiceId}/payments
+Content-Type: application/json
+Authorization: Bearer <jwt-token>
+
+{
+    "paymentMethod": "stripe",
+    "transactionId": "ch_3OiABCDEFGHIJKLMNOPQRSTU",
+    "amount": 1000.00,
+    "currency": "USD",
+    "paymentDate": "2024-01-20",
+    "notes": "Partial payment",
+    "status": "completed"
+}
+
+/***********************************************************************************
+    Create an Invoice from Quote
+***********************************************************************************
+POST /api/v1/invoices/from-quote/{quoteId}
+Content-Type: application/json
+Authorization: Bearer <jwt-token>
+
+{
+    "issueDate": "2024-01-15",
+    "dueDate": "2024-02-15",
+    "paymentTerms": "Net 30"
+}
+
+
+/***********************************************************************************
+    Create a Reminder
+***********************************************************************************
+{
+    "title": "Follow up with client on project",
+    "description": "Call John to discuss project requirements",
+    "relatedType": "client",
+    "relatedId": "667cfae9-5bdf-420b-b270-b5271f3e0c88",
+    "dueDate": "2026-01-20",
+    "dueTime": "14:30",
+    "priority": "high",
+    "isRecurring": false
+}
+
+{
+    "title": "Weekly team meeting",
+    "description": "Weekly sync with development team",
+    "dueDate": "2024-01-22",
+    "dueTime": "10:00",
+    "priority": "medium",
+    "isRecurring": true,
+    "recurrencePattern": "weekly"
+}
+
+/***********************************************************************************
+    Example Usage in Other Services
+***********************************************************************************
+// In your ClientService (after creating a client)
+activityLogService.logClientActivity(
+    userId, 
+    "created", 
+    savedClient.getId(), 
+    "Created new client: " + savedClient.getContactName(),
+    ipAddress,
+    userAgent
+);
+
+// In your InvoiceService (after sending an invoice)
+activityLogService.logInvoiceActivity(
+    userId,
+    "sent",
+    invoiceId,
+    "Invoice " + invoice.getInvoiceNumber() + " sent to client",
+    ipAddress,
+    userAgent
+);
+
+// In your PaymentService (after receiving payment)
+activityLogService.logPaymentActivity(
+    userId,
+    "received",
+    paymentId,
+    "Payment of " + payment.getAmount() + " received for invoice " + invoice.getInvoiceNumber(),
+    ipAddress,
+    userAgent
+);
