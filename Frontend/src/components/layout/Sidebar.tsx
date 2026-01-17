@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { navigation } from '@/utils/constants';
-import { useLogout } from '@/hooks/useAuth';
+import { useLogout, useCurrentUser } from '@/hooks/useAuth';
 
 interface SidebarProps {
   isMobileMenuOpen: boolean;
@@ -34,7 +34,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const logoutMutation = useLogout();
-
+  const { data: user, isLoading } = useCurrentUser();
+  
   return (
     <>
       {/* Sidebar - Desktop - Compact Version */}
@@ -95,8 +96,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 JF
               </div>
               <div className="xl:block hidden group-hover:block transition-all duration-300">
-                <p className="font-semibold text-gray-900 text-sm truncate">John Freelancer</p>
-                <p className="text-xs text-gray-500 truncate">john@freelance.com</p>
+                <p className="font-semibold text-gray-900 text-sm truncate">{user?.firstName} {user?.lastName}</p>
+                <p className="text-xs text-gray-500 truncate">{user?.email}</p>
               </div>
             </div>
           </div>
@@ -174,8 +175,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   JF
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900 text-sm">John Freelancer</p>
-                  <p className="text-xs text-gray-500">john@freelance.com</p>
+                  <p className="font-semibold text-gray-900 text-sm">{user?.firstName} {user?.lastName}</p>
+                  <p className="text-xs text-gray-500">{user?.email}</p>
                 </div>
               </div>
               <div className="space-y-1">

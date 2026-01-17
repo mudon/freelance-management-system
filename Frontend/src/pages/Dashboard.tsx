@@ -692,26 +692,6 @@ export const Dashboard: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <Target className="h-5 w-5 text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-blue-600 font-medium">Conversion Rate</p>
-                  <p className="text-2xl font-bold mt-1">
-                    {stats?.conversionRate || 0}%
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-1 mt-3">
-                <TrendingUp className="h-4 w-4 text-blue-500" />
-                <span className="text-xs text-blue-600">
-                  {quotes?.accepted || 0} of {quotes?.total || 0} accepted
-                </span>
-              </div>
-            </div>
-
             <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-purple-100 rounded-lg">

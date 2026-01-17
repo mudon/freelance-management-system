@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { navigation } from '@/utils/constants';
 import { useLocation } from 'react-router-dom';
+import { useCurrentUser } from '@/hooks/useAuth';
 
 interface TopBarProps {
   isMobileMenuOpen: boolean;
@@ -13,6 +14,7 @@ interface TopBarProps {
 export const TopBar: React.FC<TopBarProps> = ({
   setIsMobileMenuOpen
 }) => {
+  const { data: user, isLoading } = useCurrentUser();
   const location = useLocation();
 
   const getPageTitle = () => {
@@ -93,7 +95,7 @@ export const TopBar: React.FC<TopBarProps> = ({
         {/* User Profile - Desktop */}
         <div className="hidden lg:flex items-center gap-3 pl-3 border-l border-gray-200">
           <div className="text-right">
-            <p className="text-sm font-medium text-gray-900">John Freelancer</p>
+            <p className="text-sm font-medium text-gray-900">{user?.firstName} {user?.lastName}</p>
             <p className="text-xs text-gray-500">Administrator</p>
           </div>
           <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white font-bold text-sm shadow-sm cursor-pointer hover:shadow-md transition-shadow">
